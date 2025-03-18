@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SignupValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 const SignupForm = () => {
   const isLoading = false;
@@ -30,20 +31,18 @@ const SignupForm = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    const newUser = await createUserAccount(values);
+
+    console.log(newUser);
   }
 
   return (
     <Form {...form}>
-      <div className="sm:w-420 flex-center flex-col">
+      <div className="lg:w-1/2 flex justify-center items-center flex-col">
         <img src="/assets/images/logo.svg" alt="logo" />
-        <h1 className="text-2xl md:text-4xl pt-5 sm:pt-12">
-          Create a new account
-        </h1>
-        <p className="text-gray-500 text-2xl md:text-3xl">
+        <h1 className="text-2xl pt-5 ">Create a new account</h1>
+        <p className="text-gray-500 text-xl lg:text-base">
           To use socially enter your account details.
         </p>
 
@@ -58,7 +57,11 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input type="text" className="" {...field} />
+                  <Input
+                    type="text"
+                    className="h-12 bg-gray-50 focus-visible:ring-1 focus-visible:ring-offset-1 !important"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -71,7 +74,11 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input type="text" className="" {...field} />
+                  <Input
+                    type="text"
+                    className="h-12 bg-gray-50 focus-visible:ring-1 focus-visible:ring-offset-1 !important"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -84,7 +91,11 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" className="" {...field} />
+                  <Input
+                    type="email"
+                    className="h-12 bg-gray-50 focus-visible:ring-1 focus-visible:ring-offset-1 !important"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -97,13 +108,20 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" className="" {...field} />
+                  <Input
+                    type="password"
+                    className="h-12 bg-gray-50 focus-visible:ring-1 focus-visible:ring-offset-1 !important"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="text-white">
+          <Button
+            type="submit"
+            className="h-12 bg-indigo-500 text-white hover:bg-indigo-600 flex gap-2 !important hover:cursor-pointer"
+          >
             {isLoading ? (
               <div className="flex items-center gap-2">
                 <Loader />
